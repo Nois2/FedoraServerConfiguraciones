@@ -10,10 +10,10 @@ sudo dnf install -y httpd php php-mbstring php-gd php-mysqlnd php-fpm php-xml li
 wget https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18.21.0.tar.gz
 
 # Extraer el archivo descargado
-tar -xvf asterisk-18.10.0.tar.gz
+tar -xvf asterisk-18.21.0.tar.gz
 
 # Entrar al directorio de instalación de Asterisk
-cd asterisk-18.10.0
+cd asterisk-18.21.0
 
 # Configurar Asterisk
 ./configure
