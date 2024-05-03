@@ -7,13 +7,13 @@ sudo dnf update
 sudo dnf install -y httpd php php-mbstring php-gd php-mysqlnd php-fpm php-xml libxml2-devel libcurl-devel openssl-devel gcc gcc-c++ make redhat-lsb-core wget
 
 # Descargar Asterisk 18.10.0
-wget https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18.21.0.tar.gz
+wget https://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18.22.0.tar.gz
 
 # Extraer el archivo descargado
-tar -xvf asterisk-18.21.0.tar.gz
+tar -xvf asterisk-18.10.0.tar.gz
 
 # Entrar al directorio de instalación de Asterisk
-cd asterisk-18.21.0
+cd asterisk-18.10.0
 
 # Configurar Asterisk
 ./configure
