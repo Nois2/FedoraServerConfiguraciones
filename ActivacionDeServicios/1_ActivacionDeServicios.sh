@@ -2,21 +2,9 @@
 
 # Este script automatiza la configuración e inicio de varios servicios en el sistema.
 
-# Iniciar UFW (Firewall Uncomplicated)
-echo "Iniciando UFW..."
-ufw enable  # Inicia el Firewall Uncomplicated (UFW)
-
-# Habilitar UFW para que se inicie automáticamente al arrancar
-echo "Habilitando UFW para iniciar automáticamente..."
-ufw --force enable  # Habilita UFW para iniciar automáticamente al arrancar
-
 # Iniciar radvd (Router Advertisement Daemon)
 echo "Iniciando radvd..."
 service radvd start  # Inicia el servicio radvd
-
-# Habilitar radvd para que se inicie automáticamente al arrancar
-echo "Habilitando radvd para iniciar automáticamente..."
-systemctl enable radvd  # Habilita radvd para iniciar automáticamente al arrancar
 
 # Reiniciar dhcpd (Dynamic Host Configuration Protocol Daemon)
 echo "Reiniciando dhcpd..."
@@ -26,6 +14,18 @@ systemctl restart dhcpd  # Reinicia el servicio dhcpd
 echo "Iniciando dhcpd6.service..."
 systemctl start dhcpd6.service  # Inicia el servicio dhcpd6.service
 
+# Iniciar Asterisk
+echo "Iniciando Asterisk..."
+systemctl start asterisk  # Inicia Asterisk
+
+# Iniciar servidor Apache
+echo "Iniciando servidor Apache..."
+systemctl start httpd  # Inicia el servidor Apache
+
+# Habilitar radvd para que se inicie automáticamente al arrancar
+echo "Habilitando radvd para iniciar automáticamente..."
+systemctl enable radvd  # Habilita radvd para iniciar automáticamente al arrancar
+
 # Habilitar dhcpd6.service para que se inicie automáticamente al arrancar
 echo "Habilitando dhcpd6.service para iniciar automáticamente..."
 systemctl enable dhcpd6.service  # Habilita dhcpd6.service para iniciar automáticamente al arrancar
@@ -34,32 +34,27 @@ systemctl enable dhcpd6.service  # Habilita dhcpd6.service para iniciar automát
 echo "Habilitando dhcpd para iniciar automáticamente..."
 systemctl enable dhcpd  # Habilita dhcpd para iniciar automáticamente al arrancar
 
-# Verificar el estado de Asterisk
-echo "Verificando el estado de Asterisk..."
-systemctl status asterisk
-
-# Iniciar Asterisk si no está en ejecución
-echo "Iniciando Asterisk..."
-systemctl start asterisk  # Inicia Asterisk si no está en ejecución
-
 # Habilitar Asterisk para que se inicie automáticamente al arrancar
 echo "Habilitando Asterisk para iniciar automáticamente..."
 systemctl enable asterisk  # Habilita Asterisk para iniciar automáticamente al arrancar
 
-# Recargar la configuración de Asterisk
-echo "Recargando la configuración de Asterisk..."
-asterisk -rx "core reload"
+# Habilitar servidor Apache para que se inicie automáticamente al arrancar
+echo "Habilitando servidor Apache para iniciar automáticamente..."
+systemctl enable httpd  # Habilita servidor Apache para iniciar automáticamente al arrancar
 
-# Reiniciar Asterisk
-echo "Reiniciando Asterisk..."
-asterisk -rx "core restart now"
+# Verificar el estado de los servicios
+echo "Verificando el estado de los servicios..."
+systemctl status radvd
+systemctl status dhcpd
+systemctl status dhcpd6.service
+systemctl status asterisk
+systemctl status httpd
 
-# Mostrar los módulos SIP cargados en Asterisk
-echo "Mostrando los módulos SIP cargados en Asterisk..."
+# Configuracion Aesteril
+systemctl start asterisk
+systemctl enable asterisk
 asterisk -rx "module show like sip"
-
-# Cargar el módulo chan_sip.so en Asterisk
-echo "Cargando el módulo chan_sip.so en Asterisk..."
-asterisk -rx "module load chan_sip.so"
+asterisk -rx 'module load chan_sip.os'
+asterisk -rx 'sip show peers'
 
 echo "Todas las acciones completadas."
