@@ -4,7 +4,7 @@
 
 # Iniciar radvd (Router Advertisement Daemon)
 echo "Iniciando radvd..."
-service radvd start  # Inicia el servicio radvd
+systemctl start radvd  # Inicia el servicio radvd
 
 # Reiniciar dhcpd (Dynamic Host Configuration Protocol Daemon)
 echo "Reiniciando dhcpd..."
@@ -50,11 +50,12 @@ systemctl status dhcpd6.service
 systemctl status asterisk
 systemctl status httpd
 
-# Configuracion Aesteril
+# Configuración de Asterisk
+echo "Configurando Asterisk..."
 systemctl start asterisk
 systemctl enable asterisk
 asterisk -rx "module show like sip"
-asterisk -rx 'module load chan_sip.os'
+asterisk -rx 'module load chan_sip.so'
 asterisk -rx 'sip show peers'
 
 echo "Todas las acciones completadas."
